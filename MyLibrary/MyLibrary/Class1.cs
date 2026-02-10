@@ -7,6 +7,6 @@ public static class StringLibrary
         if (string.IsNullOrWhiteSpace(str))
             return false;
 
-        return !char.IsUpper(str[0]);
+        return char.IsUpper(str[0]);
     }
 }
