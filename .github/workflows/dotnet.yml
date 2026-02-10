@@ -1,7 +1,5 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET
+# Build + test for the solution
+name: Build and test (.NET)
 
 on:
   push:
@@ -10,19 +8,23 @@ on:
     branches: [ "*" ]
 
 jobs:
-  build:
-
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 10.0.x
-    - name: Restore dependencies
-      run: dotnet restore MyLibrary
-    - name: Build 
-      run: dotnet build MyLibrary --no-restore
-    - name: Test
-      run: dotnet test MyLibrary --no-build --verbosity normal
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore
+        run: dotnet restore MyLibrary/MyLibrary.sln
+
+      - name: Build
+        run: dotnet build MyLibrary/MyLibrary.sln --no-restore -c Release
+
+      - name: Test
+        run: dotnet test MyLibrary/MyLibrary.sln --no-build -c Release --verbosity normal
