@@ -1,10 +1,10 @@
 ﻿namespace UtilityLibraries;
 
-public static class StringExtensions
+public static class StringLibrary
 {
-    public static bool StartsWithUpper(this string str)
+    public static bool StartsWithUpper(this string? str)
     {
-        if (string.IsNullOrEmpty(str))
+        if (string.IsNullOrWhiteSpace(str))
             return false;
 
         return char.IsUpper(str[0]);
